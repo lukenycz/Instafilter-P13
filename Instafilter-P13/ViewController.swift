@@ -76,8 +76,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func save(_ sender: Any) {
-        guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        if imageView.image == nil {
+            let ac = UIAlertController(title: "Choose Image First!", message: "Pick a photo from library!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .destructive))
+            present(ac, animated: true)
+        } else {
+            guard let image = imageView.image else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        
     }
     
     @IBAction func intensityChange(_ sender: Any) {
