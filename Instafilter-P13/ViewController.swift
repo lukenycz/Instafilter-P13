@@ -18,6 +18,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.alpha = 0
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
@@ -40,6 +41,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
         applyProcessing()
+      
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: {self.imageView.alpha = 1})
     }
 
     @IBAction func changeFilter(_ sender: UIButton) {
